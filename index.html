@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color" content="#0b1020">
+
+    <title>LifeWeave — Your Life, In Receipts</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- =========================================
+     APP
+========================================= -->
+
+<div id="app">
+
+    <!-- MOBILE OVERLAY -->
+    <div id="sidebarOverlay" class="sidebar-overlay"></div>
+
+
+    <!-- =====================================
+         SIDEBAR
+    ====================================== -->
+
+    <aside id="sidebar" class="sidebar">
+
+        <div class="sidebar-top">
+
+            <div class="brand">
+                <div class="brand-mark">LW</div>
+
+                <div>
+                    <strong>LifeWeave</strong>
+                    <span>Your life in data</span>
+                </div>
+            </div>
+
+            <button
+                id="closeSidebar"
+                class="icon-btn sidebar-close"
+                title="Close sidebar">
+                ×
+            </button>
+
+        </div>
+
+
+        <!-- USER -->
+        <div class="user-card" id="userCard">
+
+            <div class="avatar" id="userAvatar">G</div>
+
+            <div class="user-info">
+                <strong id="userName">Guest</strong>
+                <span id="userEmail">Demo Mode</span>
+            </div>
+
+            <button
+                id="loginBtn"
+                class="mini-btn">
+                Login
+            </button>
+
+        </div>
+
+
+        <!-- NAVIGATION -->
+
+        <nav class="navigation">
+
+            <p class="nav-label">WORKSPACE</p>
+
+            <button class="nav-item active"
+                    data-view="overview">
+                <span>⌂</span>
+                <span>Overview</span>
+            </button>
+
+            <button class="nav-item"
+                    data-view="receipts">
+                <span>▣</span>
+                <span>Receipts</span>
+            </button>
+
+            <button class="nav-item"
+                    data-view="timeline">
+                <span>◷</span>
+                <span>Timeline</span>
+            </button>
+
+            <button class="nav-item"
+                    data-view="connections">
+                <span>⌁</span>
+                <span>Connections</span>
+            </button>
+
+            <button class="nav-item"
+                    data-view="stories">
+                <span>✦</span>
+                <span>Life Stories</span>
+            </button>
+
+            <p class="nav-label">TOOLS</p>
+
+            <button class="nav-item"
+                    data-view="datasets">
+                <span>▤</span>
+                <span>Datasets</span>
+            </button>
+
+            <button class="nav-item"
+                    data-view="history">
+                <span>↺</span>
+                <span>History</span>
+            </button>
+
+            <button class="nav-item"
+                    data-view="insights">
+                <span>◉</span>
+                <span>Insights</span>
+            </button>
+
+        </nav>
+
+
+        <!-- SIDEBAR BOTTOM -->
+
+        <div class="sidebar-bottom">
+
+            <button id="themeBtn"
+                    class="utility-btn">
+                <span id="themeIcon">☾</span>
+                <span id="themeText">Dark mode</span>
+            </button>
+
+            <button id="importSidebarBtn"
+                    class="utility-btn">
+                <span>＋</span>
+                <span>Import dataset</span>
+            </button>
+
+            <button id="resetBtn"
+                    class="utility-btn danger">
+                <span>↻</span>
+                <span>Reset demo data</span>
+            </button>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =====================================
+         MAIN
+    ====================================== -->
+
+    <main class="main">
+
+        <!-- TOPBAR -->
+
+        <header class="topbar">
+
+            <button
+                id="menuBtn"
+                class="icon-btn menu-btn"
+                title="Open menu">
+                ☰
+            </button>
+
+            <div class="topbar-title">
+                <span>LifeWeave</span>
+                <small id="viewTitle">Overview</small>
+            </div>
+
+            <div class="topbar-actions">
+
+                <button
+                    id="topImportBtn"
+                    class="action-btn">
+                    + Import
+                </button>
+
+                <button
+                    id="topThemeBtn"
+                    class="icon-btn"
+                    title="Toggle theme">
+                    ◐
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <!-- =================================
+             CONTENT
+        ================================== -->
+
+        <section class="content">
+
+            <!-- GLOBAL SEARCH -->
+
+            <div class="search-area">
+
+                <div class="search-box">
+
+                    <span>⌕</span>
+
+                    <input
+                        id="globalSearch"
+                        type="search"
+                        placeholder="Search your receipts, music, purchases, categories...">
+
+                    <kbd>CTRL K</kbd>
+
+                </div>
+
+            </div>
+
+
+            <!-- VIEW CONTAINER -->
+
+            <div id="viewContainer"></div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+
+<!-- =========================================
+     IMPORT MODAL
+========================================= -->
+
+<div id="importModal"
+     class="modal hidden">
+
+    <div class="modal-card">
+
+        <div class="modal-header">
+
+            <div>
+                <span class="eyebrow">DATA LAB</span>
+                <h2>Import your receipts</h2>
+            </div>
+
+            <button
+                class="modal-close"
+                data-close="importModal">
+                ×
+            </button>
+
+        </div>
+
+
+        <div id="dropZone"
+             class="drop-zone">
+
+            <div class="drop-icon">↑</div>
+
+            <h3>Drop dataset files here</h3>
+
+            <p>
+                CSV or TSV files are supported.
+                You can select multiple files.
+            </p>
+
+            <button
+                id="chooseFilesBtn"
+                class="primary-btn">
+                Choose files
+            </button>
+
+            <input
+                id="fileInput"
+                type="file"
+                accept=".csv,.tsv,text/csv,text/tab-separated-values"
+                multiple
+                hidden>
+
+        </div>
+
+
+        <div id="importStatus"
+             class="import-status">
+            Demo datasets are loaded by default.
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================
+     LOGIN MODAL
+========================================= -->
+
+<div id="loginModal"
+     class="modal hidden">
+
+    <div class="modal-card small-modal">
+
+        <div class="modal-header">
+
+            <div>
+                <span class="eyebrow">ACCOUNT</span>
+                <h2>Welcome back</h2>
+            </div>
+
+            <button
+                class="modal-close"
+                data-close="loginModal">
+                ×
+            </button>
+
+        </div>
+
+
+        <form id="loginForm">
+
+            <label>
+                Your name
+
+                <input
+                    id="loginName"
+                    type="text"
+                    placeholder="Enter your name"
+                    required>
+            </label>
+
+
+            <label>
+                Email
+
+                <input
+                    id="loginEmail"
+                    type="email"
+                    placeholder="you@example.com"
+                    required>
+            </label>
+
+
+            <button
+                type="submit"
+                class="primary-btn full-btn">
+                Continue
+            </button>
+
+        </form>
+
+        <p class="form-note">
+            This is a frontend demo login.
+            No password or server account is required.
+        </p>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================
+     CONNECTION / RECEIPT DETAIL MODAL
+========================================= -->
+
+<div id="detailModal"
+     class="modal hidden">
+
+    <div class="modal-card detail-modal">
+
+        <div class="modal-header">
+
+            <div>
+                <span class="eyebrow"
+                      id="detailEyebrow">
+                    RECEIPT
+                </span>
+
+                <h2 id="detailTitle">
+                    Detail
+                </h2>
+            </div>
+
+            <button
+                class="modal-close"
+                data-close="detailModal">
+                ×
+            </button>
+
+        </div>
+
+
+        <div id="detailBody"
+             class="detail-body">
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================
+     TOAST
+========================================= -->
+
+<div id="toast"
+     class="toast">
+    <span id="toastIcon">✓</span>
+    <span id="toastMessage">Done</span>
+</div>
+
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
